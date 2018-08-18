@@ -26,7 +26,7 @@ namespace GameOfLifeKataTests
 
             Grid grid = new Grid(inital);
 
-            //grid.Generations(1);
+            grid.Generations(1);
 
             Assert.That(grid.Result(), Is.EqualTo(expected));
         }
@@ -115,26 +115,26 @@ namespace GameOfLifeKataTests
             Assert.That(grid.CellNextState(x, y), Is.EqualTo(cellState));
         }
 
-        //[Test]
-        //public void grid3x3_three_cells_resurrect_dead_cell()
-        //{
-        //    string inital = 
-        //        "000\r\n"
-        //    +   "011\r\n"
-        //    +   "001";
+        public void grid4x5_check_next_generation()
+        {
+            string inital =
+                "1101\r\n"
+            +   "1010\r\n"
+            +   "0000\r\n"
+            +   "0111\r\n"
+            +   "0110";
 
-        //    string expected = 
-        //        "000\r\n"
-        //    +   "011\r\n"
-        //    +   "011";
+            string expected =
+                "1110\r\n"
+            +   "1110\r\n"
+            +   "0101\r\n"
+            +   "0101\r\n"
+            +   "0101";
 
-        //    Grid grid = new Grid(inital);
+            Grid grid = new Grid(inital);
 
-        //    grid.Generations(1);
-
-        //    Assert.That(grid.Result(), Is.EqualTo(expected));
-        //}
-
+            Assert.That(grid.Result(), Is.EqualTo(expected));
+        }
 
     }
 }

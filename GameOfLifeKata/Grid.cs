@@ -106,29 +106,37 @@ namespace GameOfLifeKata
             return cellNextStatus;
         }
 
-        //public void Generations(int iterations)
-        //{
-        //    for(var i=0; i<iterations; i++)
-        //    {
-        //        //check each cell and decide wheter it should live or die
-        //        for(var m=0; m< ByteGrid.GetLength(0); m++)
-        //        {
-        //            for (var n = 0; n < ByteGrid.GetLength(1); n++)
-        //            {
-        //                //grid[m,n];
-        //                //check neighbors
-        //            }
-        //        }
+        public void Generations(int iterations)
+        {
+            for (var i = 0; i < iterations; i++)
+            {
+                for (var m = 0; m < GridWidth; m++)
+                {
+                    for (var n = 0; n < GridHeight; n++)
+                    {
+                        ByteGrid[m,n] = CellNextState(m, n);
+                    }
+                }
 
-        //    }
-        //}
+            }
+        }
 
 
         public string Result()
         {
-            return "000\r\n"
-                + "000\r\n"
-                + "000";
+            StringBuilder textGrid = new StringBuilder();
+
+            for (var m = 0; m < GridWidth; m++)
+            {
+                for (var n = 0; n < GridHeight; n++)
+                {
+                    textGrid.Append(ByteGrid[m, n]);
+                }
+                if(m< GridWidth-1)
+                    textGrid.Append(Environment.NewLine);
+            }
+
+            return textGrid.ToString();
         }
 
         string[] SplitTextByNewLine(string text)
