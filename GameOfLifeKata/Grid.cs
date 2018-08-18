@@ -49,7 +49,7 @@ namespace GameOfLifeKata
 
         /// <summary>
         /// Return the number of living neighbors for provided position.
-        /// Returns -1 if given positino is out of range.
+        /// Returns -1 if given position is out of range.
         /// </summary>
         /// <param name="x">Horizontal position of the cell.</param>
         /// <param name="y">Vertical position of the cell.</param>
@@ -84,6 +84,9 @@ namespace GameOfLifeKata
             byte cellStatus = CellAt(x, y);
             byte cellNextStatus = 255;
             int livingNeighbors = CellLivingNeighbors(x, y);
+
+            if (cellStatus == 255 || livingNeighbors == -1)
+                return cellNextStatus;
 
             if(cellStatus==1)
             {

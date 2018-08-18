@@ -98,6 +98,9 @@ namespace GameOfLifeKataTests
         [TestCase(2, 4, 0)]
         [TestCase(1, 4, 1)]
         [TestCase(3, 1, 0)]
+        [TestCase(3, 5, 255)]
+        [TestCase(-1, 3, 255)]
+        [TestCase(3, 17, 255)]
         public void grid4x5_check_cell_next_state(int x, int y, byte cellState)
         {
             string inital =
