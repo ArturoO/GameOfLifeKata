@@ -35,14 +35,14 @@ namespace GameOfLifeKata
             return ByteGrid[x, y];
         }
         
-        public int LivingNeighbors(int x, int y)
+        public int CellLivingNeighbors(int x, int y)
         {
             var minX = (x > 0 ? x - 1 : 0);
             var maxX = (x < GridWidth-1 ? x + 1 : GridWidth-1);
             var minY = (y > 0 ? y - 1 : 0);
             var maxY = (y < GridHeight-1 ? y + 1 : GridHeight-1);
 
-            var LivingNeighbors = 0;
+            var CellLivingNeighbors = 0;
 
             for(var i=minX; i<=maxX; i++)
             {
@@ -50,11 +50,35 @@ namespace GameOfLifeKata
                 {
                     if (i == x && j == y)
                         continue;
-                    LivingNeighbors += CellAt(i, j);                    
+                    CellLivingNeighbors += CellAt(i, j);
                 }
             }
 
-            return LivingNeighbors;
+            return CellLivingNeighbors;
+        }
+
+        public byte CellNextState(int x, int y)
+        {
+            byte cellStatus = CellAt(x, y);
+            byte cellNextStatus = 255;
+            int livingNeighbors = CellLivingNeighbors(x, y);
+
+            if(cellStatus==1)
+            {
+                if (livingNeighbors < 2 || livingNeighbors > 3)
+                    cellNextStatus = 0;
+                else
+                    cellNextStatus = 1;
+            }
+            else if(cellStatus==0)
+            {
+                if(livingNeighbors==3)
+                    cellNextStatus = 1;
+                else
+                    cellNextStatus = 0;
+            }
+
+            return cellNextStatus;
         }
 
         //public void Generations(int iterations)

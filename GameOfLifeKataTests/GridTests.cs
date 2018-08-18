@@ -83,9 +83,27 @@ namespace GameOfLifeKataTests
 
             Grid grid = new Grid(inital);
 
-            Assert.That(grid.LivingNeighbors(x, y), Is.EqualTo(livingNeighbours));
+            Assert.That(grid.CellLivingNeighbors(x, y), Is.EqualTo(livingNeighbours));
         }
 
+        [TestCase(0, 0, 1)]
+        [TestCase(2, 0, 1)]
+        [TestCase(2, 4, 0)]
+        [TestCase(1, 4, 1)]
+        [TestCase(3, 1, 0)]
+        public void grid4x5_check_cell_next_state(int x, int y, byte cellState)
+        {
+            string inital =
+                "1101\r\n"
+            +   "1010\r\n"
+            +   "0000\r\n"
+            +   "0111\r\n"
+            +   "0110";
+
+            Grid grid = new Grid(inital);
+
+            Assert.That(grid.CellNextState(x, y), Is.EqualTo(cellState));
+        }
 
         //[Test]
         //public void grid3x3_three_cells_resurrect_dead_cell()
