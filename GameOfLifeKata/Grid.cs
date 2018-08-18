@@ -9,7 +9,7 @@ namespace GameOfLifeKata
     public class Grid
     {
         string TextGrid;
-        byte[,] grid;
+        byte[,] ByteGrid;
 
         public Grid(string textGrid)
         {
@@ -17,33 +17,38 @@ namespace GameOfLifeKata
             string[] gridParts = SplitTextByNewLine(textGrid);
             int y = gridParts.Length;
             int x = gridParts[0].Length;
-            grid = new byte[x, y];
+            ByteGrid = new byte[x, y];
             for(var i=0; i<y; i++)
             {
                 for (var j = 0; j < x; j++)
                 {
-                    grid[i,j] = (byte)char.GetNumericValue(gridParts[i][j]);
+                    ByteGrid[j,i] = (byte)char.GetNumericValue(gridParts[i][j]);
                 }
             }
             
         }
-                
-        public void Generations(int iterations)
-        {
-            for(var i=0; i<iterations; i++)
-            {
-                //check each cell and decide wheter it should live or die
-                for(var m=0; m<grid.GetLength(0); m++)
-                {
-                    for (var n = 0; n < grid.GetLength(1); n++)
-                    {
-                        //grid[m,n];
-                        //check neighbors
-                    }
-                }
 
-            }
+        public byte CellAt(int x, int y)
+        {
+            return ByteGrid[x, y];
         }
+                
+        //public void Generations(int iterations)
+        //{
+        //    for(var i=0; i<iterations; i++)
+        //    {
+        //        //check each cell and decide wheter it should live or die
+        //        for(var m=0; m< ByteGrid.GetLength(0); m++)
+        //        {
+        //            for (var n = 0; n < ByteGrid.GetLength(1); n++)
+        //            {
+        //                //grid[m,n];
+        //                //check neighbors
+        //            }
+        //        }
+
+        //    }
+        //}
 
         
         public string Result()

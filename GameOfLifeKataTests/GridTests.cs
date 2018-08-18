@@ -26,30 +26,65 @@ namespace GameOfLifeKataTests
 
             Grid grid = new Grid(inital);
 
-            grid.Generations(1);
+            //grid.Generations(1);
 
             Assert.That(grid.Result(), Is.EqualTo(expected));
         }
 
-        [Test]
-        public void grid3x3_three_cells_resurrect_dead_cell()
+        [TestCase(0, 0, 0)]
+        [TestCase(1, 0, 0)]
+        [TestCase(2, 0, 1)]
+        [TestCase(3, 0, 1)]
+        [TestCase(0, 1, 0)]
+        [TestCase(1, 1, 1)]
+        [TestCase(2, 1, 0)]
+        [TestCase(3, 1, 1)]
+        [TestCase(0, 2, 1)]
+        [TestCase(1, 2, 0)]
+        [TestCase(2, 2, 0)]
+        [TestCase(3, 2, 1)]
+        [TestCase(0, 3, 1)]
+        [TestCase(1, 3, 0)]
+        [TestCase(2, 3, 1)]
+        [TestCase(3, 3, 0)]
+        [TestCase(0, 4, 0)]
+        [TestCase(1, 4, 1)]
+        [TestCase(2, 4, 1)]
+        [TestCase(3, 4, 0)]
+        public void text_grid4x5_was_correctly_parsed(int x, int y, byte expected)
         {
-            string inital = 
-                "000\r\n"
-            +   "011\r\n"
-            +   "001";
-
-            string expected = 
-                "000\r\n"
-            +   "011\r\n"
-            +   "011";
+            string inital =
+                "0011\r\n"
+            +   "0101\r\n"
+            +   "1001\r\n"
+            +   "1010\r\n"
+            +   "0110";
 
             Grid grid = new Grid(inital);
-
-            grid.Generations(1);
-
-            Assert.That(grid.Result(), Is.EqualTo(expected));
+            
+            Assert.That(grid.CellAt(x,y), Is.EqualTo(expected));
         }
+
+
+        //[Test]
+        //public void grid3x3_three_cells_resurrect_dead_cell()
+        //{
+        //    string inital = 
+        //        "000\r\n"
+        //    +   "011\r\n"
+        //    +   "001";
+
+        //    string expected = 
+        //        "000\r\n"
+        //    +   "011\r\n"
+        //    +   "011";
+
+        //    Grid grid = new Grid(inital);
+
+        //    grid.Generations(1);
+
+        //    Assert.That(grid.Result(), Is.EqualTo(expected));
+        //}
 
 
     }
