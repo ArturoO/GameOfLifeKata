@@ -2,21 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GameOfLifeKata
 {
     public class Grid
     {
-        byte[,] ByteGrid;
-        int GridWidth;  //x
-        int GridHeight; //y
+        byte[,] ByteGrid = null;
+        int GridWidth = 0;  //x
+        int GridHeight = 0; //y
 
         public Grid(string textGrid)
         {
+            if (!ValidateInputGrid(textGrid))
+                return;
+
             ByteGrid = ParseTextGrid(textGrid);
             GridWidth = ByteGrid.GetLength(0);
-            GridHeight = ByteGrid.GetLength(1);
+            GridHeight = ByteGrid.GetLength(1);            
+        }
+
+        bool ValidateInputGrid(string textGrid)
+        {
+            //string may contain only 0,1 and new line characters
+            Regex rgx = new Regex(@"^[01(\n|\r|\r\n)]+$");
+            bool result = rgx.IsMatch(textGrid);
+            if (!result)
+                return false;
+
+            //split by new line and check if each row has the same number of columns
+            string[] gridParts = SplitTextByNewLine(textGrid);
+            int gridHeight = gridParts.Length;
+            int colCount = 0;
+            for (var i = 0; i < gridHeight; i++)
+            {
+                if(colCount==0)
+                    colCount = gridParts[i].Length;
+                else
+                {
+                    if (colCount != gridParts[i].Length)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public byte[,] GetByteGrid()
+        {
+            return ByteGrid;
         }
 
         byte[,] ParseTextGrid(string textGrid)
@@ -86,6 +121,13 @@ namespace GameOfLifeKata
             return CellLivingNeighbors;
         }
 
+        /// <summary>
+        /// Returns cell status at given position in next generation.
+        /// 0 represents dead cell, 1 is for living cell. 
+        /// </summary>
+        /// <param name="x">Horizontal position of the cell.</param>
+        /// <param name="y">Vertical position of the cell.</param>
+        /// <returns></returns>
         public byte CellNextState(int x, int y)
         {
             byte cellStatus = CellAt(x, y);
@@ -127,11 +169,9 @@ namespace GameOfLifeKata
 
             }
         }
-
-
         public string Result()
         {
-            StringBuilder textGrid = new StringBuilder();
+            StringBuilder textGrid = new StringBuilder("");
 
             for (var m = 0; m < GridWidth; m++)
             {

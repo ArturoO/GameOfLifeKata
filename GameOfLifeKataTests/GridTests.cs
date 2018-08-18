@@ -10,6 +10,29 @@ namespace GameOfLifeKataTests
 {
     public class GridTests
     {
+        [TestCase("")]
+        [TestCase("a")]
+        [TestCase("00\r\n01\r\n0")]
+        [TestCase("0000\r\n020\r\n0001a")]
+        public void incorrect_input_grid(string inputGrid)
+        {
+            Grid grid = new Grid(inputGrid);
+
+            object expected = null;
+            Assert.That(grid.GetByteGrid(), Is.EqualTo(expected));
+
+            int expected2 = 255;
+            Assert.That(grid.CellAt(0, 0), Is.EqualTo(expected2));
+
+            int expected3 = -1;
+            Assert.That(grid.CellLivingNeighbors(0, 0), Is.EqualTo(expected3));
+
+            int expected4 = 255;
+            Assert.That(grid.CellNextState(0, 0), Is.EqualTo(expected4));
+
+            string expected5 = "";
+            Assert.That(grid.Result(), Is.EqualTo(expected5));
+        }
 
         [Test]
         public void grid3x3_single_cell_after_one_generation()
