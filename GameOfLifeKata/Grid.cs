@@ -8,26 +8,33 @@ namespace GameOfLifeKata
 {
     public class Grid
     {
-        string TextGrid;
         byte[,] ByteGrid;
         int GridWidth;  //x
         int GridHeight; //y
 
         public Grid(string textGrid)
         {
-            TextGrid = textGrid;
+            ByteGrid = ParseTextGrid(textGrid);
+            GridWidth = ByteGrid.GetLength(0);
+            GridHeight = ByteGrid.GetLength(1);
+        }
+
+        byte[,] ParseTextGrid(string textGrid)
+        {
+            byte[,] byteGrid;
             string[] gridParts = SplitTextByNewLine(textGrid);
-            GridHeight = gridParts.Length;
-            GridWidth = gridParts[0].Length;
-            ByteGrid = new byte[GridWidth, GridHeight];
-            for(var i=0; i< GridHeight; i++)
+            int gridHeight = gridParts.Length;
+            int gridWidth = gridParts[0].Length;
+
+            byteGrid = new byte[gridWidth, gridHeight];
+            for (var i = 0; i < gridHeight; i++)
             {
-                for (var j = 0; j < GridWidth; j++)
+                for (var j = 0; j < gridWidth; j++)
                 {
-                    ByteGrid[j,i] = (byte)char.GetNumericValue(gridParts[i][j]);
+                    byteGrid[j, i] = (byte)char.GetNumericValue(gridParts[i][j]);
                 }
             }
-            
+            return byteGrid;
         }
 
         /// <summary>
