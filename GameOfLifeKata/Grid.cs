@@ -40,15 +40,25 @@ namespace GameOfLifeKata
         /// <returns></returns>
         public byte CellAt(int x, int y)
         {
-            if ((x >= 0 && x <= GridWidth)
-                && (y >= 0 && y <= GridHeight))
+            if ((x >= 0 && x <= GridWidth-1)
+                && (y >= 0 && y <= GridHeight-1))
                 return ByteGrid[x, y]; 
             else
                 return 255;
         }
-        
+
+        /// <summary>
+        /// Return the number of living neighbors for provided position.
+        /// Returns -1 if given positino is out of range.
+        /// </summary>
+        /// <param name="x">Horizontal position of the cell.</param>
+        /// <param name="y">Vertical position of the cell.</param>
+        /// <returns></returns>
         public int CellLivingNeighbors(int x, int y)
         {
+            if(CellAt(x,y)==255)            
+                return -1;
+
             var minX = (x > 0 ? x - 1 : 0);
             var maxX = (x < GridWidth-1 ? x + 1 : GridWidth-1);
             var minY = (y > 0 ? y - 1 : 0);

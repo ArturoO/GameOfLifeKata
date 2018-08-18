@@ -51,6 +51,7 @@ namespace GameOfLifeKataTests
         [TestCase(1, 4, 1)]
         [TestCase(2, 4, 1)]
         [TestCase(3, 4, 0)]
+        [TestCase(4, 4, 255)]
         [TestCase(-1, 10, 255)]
         [TestCase(2, 6, 255)]
         [TestCase(7, 3, 255)]
@@ -75,6 +76,9 @@ namespace GameOfLifeKataTests
         [TestCase(1, 3, 5)]
         [TestCase(2, 1, 5)]
         [TestCase(3, 3, 3)]
+        [TestCase(-1, -1, -1)]
+        [TestCase(4, 2, -1)]
+        [TestCase(2, 5, -1)]
         public void grid4x5_count_living_neighbours(int x, int y, int livingNeighbours)
         {
             string inital =
