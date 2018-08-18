@@ -30,9 +30,21 @@ namespace GameOfLifeKata
             
         }
 
+        /// <summary>
+        /// Returns cell status at given position. 
+        /// 0 represents dead cell, 1 is for living cell. 
+        /// If provided position is incorrect then 255 is returned
+        /// </summary>
+        /// <param name="x">Horizontal position of the cell.</param>
+        /// <param name="y">Vertical position of the cell.</param>
+        /// <returns></returns>
         public byte CellAt(int x, int y)
         {
-            return ByteGrid[x, y];
+            if ((x >= 0 && x <= GridWidth)
+                && (y >= 0 && y <= GridHeight))
+                return ByteGrid[x, y]; 
+            else
+                return 255;
         }
         
         public int CellLivingNeighbors(int x, int y)

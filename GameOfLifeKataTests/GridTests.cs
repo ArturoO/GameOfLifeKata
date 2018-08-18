@@ -51,6 +51,9 @@ namespace GameOfLifeKataTests
         [TestCase(1, 4, 1)]
         [TestCase(2, 4, 1)]
         [TestCase(3, 4, 0)]
+        [TestCase(-1, 10, 255)]
+        [TestCase(2, 6, 255)]
+        [TestCase(7, 3, 255)]
         public void text_grid4x5_was_correctly_parsed(int x, int y, byte expected)
         {
             string inital =
