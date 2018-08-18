@@ -10,17 +10,19 @@ namespace GameOfLifeKata
     {
         string TextGrid;
         byte[,] ByteGrid;
+        int GridWidth;  //x
+        int GridHeight; //y
 
         public Grid(string textGrid)
         {
             TextGrid = textGrid;
             string[] gridParts = SplitTextByNewLine(textGrid);
-            int y = gridParts.Length;
-            int x = gridParts[0].Length;
-            ByteGrid = new byte[x, y];
-            for(var i=0; i<y; i++)
+            GridHeight = gridParts.Length;
+            GridWidth = gridParts[0].Length;
+            ByteGrid = new byte[GridWidth, GridHeight];
+            for(var i=0; i< GridHeight; i++)
             {
-                for (var j = 0; j < x; j++)
+                for (var j = 0; j < GridWidth; j++)
                 {
                     ByteGrid[j,i] = (byte)char.GetNumericValue(gridParts[i][j]);
                 }
@@ -32,7 +34,29 @@ namespace GameOfLifeKata
         {
             return ByteGrid[x, y];
         }
-                
+        
+        public int LivingNeighbors(int x, int y)
+        {
+            var minX = (x > 0 ? x - 1 : 0);
+            var maxX = (x < GridWidth-1 ? x + 1 : GridWidth-1);
+            var minY = (y > 0 ? y - 1 : 0);
+            var maxY = (y < GridHeight-1 ? y + 1 : GridHeight-1);
+
+            var LivingNeighbors = 0;
+
+            for(var i=minX; i<=maxX; i++)
+            {
+                for (var j = minY; j<=maxY; j++)
+                {
+                    if (i == x && j == y)
+                        continue;
+                    LivingNeighbors += CellAt(i, j);                    
+                }
+            }
+
+            return LivingNeighbors;
+        }
+
         //public void Generations(int iterations)
         //{
         //    for(var i=0; i<iterations; i++)
@@ -50,7 +74,7 @@ namespace GameOfLifeKata
         //    }
         //}
 
-        
+
         public string Result()
         {
             return "000\r\n"

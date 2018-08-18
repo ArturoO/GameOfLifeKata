@@ -10,19 +10,11 @@ namespace GameOfLifeKata
     {
         static void Main(string[] args)
         {
-            string inital =
-                "000\r\n"
-            +   "010\r\n"
-            +   "000";
+            int[,] grid = new int[3,4];
 
-            string[] result = inital.Split(
-                new[] { Environment.NewLine },
-                StringSplitOptions.None);
+            Console.WriteLine($"Length of first dimension: {grid.GetLength(0)}");
+            Console.WriteLine($"Length of second dimension: {grid.GetLength(1)}");
 
-            //Console.WriteLine(result.Length);
-
-            foreach (string item in result)
-                Console.WriteLine(item);
         }
     }
 }
