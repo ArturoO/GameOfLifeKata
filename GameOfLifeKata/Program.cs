@@ -12,6 +12,7 @@ namespace GameOfLifeKata
         static void Main(string[] args)
         {
             
+         
         }
     }
 }

@@ -159,5 +159,33 @@ namespace GameOfLifeKataTests
             Assert.That(grid.Result(), Is.EqualTo(expected));
         }
 
+        [Test]
+        public void exploder_grid_after_10_generations()
+        {
+            //Exploder
+            //Source: https://bitstorm.org/gameoflife/
+            string inital =
+                "0000000000000\r\n"
+            +   "0000101010000\r\n"
+            +   "0000100010000\r\n"
+            +   "0000100010000\r\n"
+            +   "0000100010000\r\n"
+            +   "0000101010000\r\n"
+            +   "0000000000000";
+
+            string expected =
+                "0001000001000\r\n"
+            +   "0011100011100\r\n"
+            +   "0101010101010\r\n"
+            +   "1110110110111\r\n"
+            +   "0101010101010\r\n"
+            +   "0011100011100\r\n"
+            +   "0001000001000";
+
+            Grid grid = new Grid(inital);
+            grid.Generations(10);
+            Assert.That(grid.Result(), Is.EqualTo(expected));            
+        }
+
     }
 }

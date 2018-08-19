@@ -157,29 +157,31 @@ namespace GameOfLifeKata
 
         public void Generations(int iterations)
         {
+            byte[,] NextByteGrid = new byte[GridWidth, GridHeight];
+
             for (var i = 0; i < iterations; i++)
             {
                 for (var m = 0; m < GridWidth; m++)
                 {
                     for (var n = 0; n < GridHeight; n++)
                     {
-                        ByteGrid[m,n] = CellNextState(m, n);
+                        NextByteGrid[m,n] = CellNextState(m, n);
                     }
                 }
-
+                ByteGrid = (byte[,])NextByteGrid.Clone();
             }
         }
         public string Result()
         {
             StringBuilder textGrid = new StringBuilder("");
 
-            for (var m = 0; m < GridWidth; m++)
+            for (var n = 0; n < GridHeight; n++)                
             {
-                for (var n = 0; n < GridHeight; n++)
+                for (var m = 0; m < GridWidth; m++)
                 {
                     textGrid.Append(ByteGrid[m, n]);
                 }
-                if(m< GridWidth-1)
+                if( n < GridHeight - 1)
                     textGrid.Append(Environment.NewLine);
             }
 
@@ -191,6 +193,16 @@ namespace GameOfLifeKata
             return text.Split(
                 new[] { Environment.NewLine },
                 StringSplitOptions.None);
+        }
+
+        public int GetWidth()
+        {
+            return GridWidth;
+        }
+
+        public int GetHeight()
+        {
+            return GridHeight;
         }
     }
 }
